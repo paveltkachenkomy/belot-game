@@ -1,3 +1,4 @@
+// Масти
 export enum ESuits {
     "Spades",
     "Hearts",
@@ -5,6 +6,7 @@ export enum ESuits {
     "Clubs",
 }
 
+// Карты
 export enum ECard {
     "Seven",
     "Eight",
@@ -16,6 +18,7 @@ export enum ECard {
     "Ace"
 }
 
+// Названия масти
 export enum ESuitsName {
     "Пики" = ESuits.Spades,
     "Черви" = ESuits.Hearts,
@@ -23,6 +26,7 @@ export enum ESuitsName {
     "Трефы" = ESuits.Clubs,
 }
 
+// Названия карт
 export enum ECardName {
     "Семерка" = ECard.Seven,
     "Восьмерка" = ECard.Eight,
@@ -40,12 +44,13 @@ export type TDisplay = {
 }
 
 export class Card {
-    public suit: ESuits;
-    public card: ECard;
-    public display: TDisplay;
-    public img: string;
-    public value: number;
-    public isTrump: boolean;
+    public suit: ESuits;            // Масть
+    public card: ECard;             // Карта
+    public display: TDisplay;       // Для отображения, название масти и название карты
+    public img: string;             // Картинка карты
+    public value: number;           // Достоинство карты
+    public isTrump: boolean;        // Является ли козырем
+    public isAvailable: boolean;    // Доступна для действия
 
     constructor(suit: ESuits, card: ECard) {
         this.suit = suit;
@@ -57,8 +62,10 @@ export class Card {
         };
         this.img = `./${suit}_${card}.svg`;
         this.isTrump = false;
+        this.isAvailable = false;
     }
 
+    // Устанавливаем достоинство карты
     public setValue(): number {
         let value = 0;
         switch (this.card) {
@@ -94,8 +101,14 @@ export class Card {
         return this.value = value;
     }
 
-    public setIsTrump(): void {
-        this.isTrump = true;
+    // Устанавливаем является ли карта козырем
+    public setIsTrump(isTrump: boolean = false): void {
+        this.isTrump = false;
         this.setValue();
+    }
+
+    // Устанавливаем является ли досутпна для
+    public setIsAvailable(available: boolean) {
+        this.isAvailable = available;
     }
 }
